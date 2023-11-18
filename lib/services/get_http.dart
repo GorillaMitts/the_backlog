@@ -6,6 +6,8 @@ import '../models/game_list.dart';
 import 'package:http/http.dart' as http;
 
 Future<GameList> fetchGame(String name) async {
+  //! Need to use package to retrieve GAMES_DB_API_KEY from .env
+
   const apiKey = '';
   String gameName = name;
 
