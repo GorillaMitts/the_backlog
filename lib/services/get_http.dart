@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:the_backlog/env/env.dart';
+
 import '../models/game_list.dart';
 
 import 'package:http/http.dart' as http;
@@ -8,7 +10,7 @@ import 'package:http/http.dart' as http;
 Future<GameList> fetchGame(String name) async {
   //! Need to use package to retrieve GAMES_DB_API_KEY from .env
 
-  const apiKey = '';
+  String apiKey = Env.gamesDB_apiKey;
   String gameName = name;
 
   String url =
