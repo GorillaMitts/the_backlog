@@ -13,6 +13,8 @@ The API Key should be placed in a .env file located in the top level of your app
 
 GAMES_DB_API_KEY = 'Your Games DB Key Here'
 
+## Preview
+
 <div style="display: flex;
     align-items: center;
     justify-content: space-evenly;">
