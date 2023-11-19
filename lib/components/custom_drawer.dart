@@ -27,7 +27,7 @@ class CustomDrawer extends StatelessWidget {
             Expanded(
               child: Container(),
             ),
-            const Text('Copyright © 2023 Gorillaware, LLC.')
+            const Text('Created by Chris Dyal')
           ],
         ),
       ),
