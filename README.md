@@ -18,6 +18,6 @@ GAMES_DB_API_KEY = 'Your Games DB Key Here'
 <div style="display: flex;
     align-items: center;
     justify-content: space-evenly;">
-<img src="image/README/1700379275912.png" width="200">
-<img src="image/README/1700379203852.png" width="200">
+<img src="image/README/1700379275912.png" width="300">
+<img src="image/README/1700379203852.png" width="300">
 </div>
