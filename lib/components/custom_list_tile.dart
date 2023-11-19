@@ -10,21 +10,22 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: Theme.of(context).colorScheme.primaryContainer,
       leading: SizedBox(
-        height: 100.0,
-        width: 100.0,
+        height: 200.0,
+        width: 50.0,
         child: Image.network(
             'https://cdn.thegamesdb.net/images/thumb/boxart/front/${listGame.id}-1.jpg'),
       ),
-      title: Text('${listGame.gameTitle}'),
-      subtitle: Text(
-        listGame.releaseDate!,
-      ),
+      title: Text('${listGame.gameTitle}',
+          style: const TextStyle(fontWeight: FontWeight.bold)),
+      subtitle: Text('Released: ${listGame.releaseDate}'),
       trailing: SizedBox(
         height: 40.0,
         width: 40.0,
-        child: Image.network(
-            'https://cdn.thegamesdb.net/images/thumb/platform/boxart/${listGame.platform}-1.jpg'),
+        child: Text(
+          listGame.platform.toString(),
+        ),
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:the_backlog/pages/gamelistviewer.dart';
+import 'package:the_backlog/pages/searchpage.dart';
 import 'package:flutter/material.dart';
 import 'pages/homepage.dart';
 
@@ -14,10 +14,15 @@ class TheBacklog extends StatelessWidget {
     return MaterialApp(
       title: 'Backlog',
       theme: ThemeData.dark(
+        // colorSchemeSeed: Colors.green,
         useMaterial3: true,
       ),
-      home: const HomePage(title: 'Video Game Backlog'),
-      routes: {'/GameListViewer': (context) => const GameListViewer()},
+      home: const HomePage(
+        subtitle: 'Home',
+      ),
+      routes: {
+        '/GameListViewer': (context) => const SearchPage(subtitle: 'Search')
+      },
     );
   }
 }

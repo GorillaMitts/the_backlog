@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../models/game.dart';
 import '../components/custom_list_tile.dart';
+import '../components/custom_appbar_title.dart';
+import '../components/custom_drawer.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-  final String title;
+  const HomePage({super.key, required this.subtitle});
+  final String subtitle;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -35,27 +37,23 @@ class _HomePageState extends State<HomePage> {
 
   TextEditingController titleFieldController = TextEditingController();
 
-  void _addGame(String gameTitle) {
-    setState(() {
-      _gameList.add({
-        'game_title': gameTitle,
-        'developers': [3],
-        'platform': 2,
-        'dateAdded': DateTime.now().toString()
-      });
-      titleFieldController.text = '';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: const CustomDrawer(),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: CustomAppbarTitle(
+          subtitle: widget.subtitle,
+        ),
       ),
-      body: ListView.builder(
+      body: ListView.separated(
         itemCount: _gameList.length,
+        padding: const EdgeInsets.only(
+            top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
+        separatorBuilder: (context, index) => const SizedBox(
+          height: 10,
+        ),
         itemBuilder: (BuildContext context, int index) {
           final Game sendingGame = Game.fromJson(_gameList[index]);
           return CustomListTile(listGame: sendingGame);
@@ -94,6 +92,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).pop();
                 Navigator.pushNamed(context, '/GameListViewer',
                     arguments: titleFieldController.text);
+                titleFieldController.text = '';
               },
             ),
           ],
