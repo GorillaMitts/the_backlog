@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       endDrawer: const CustomDrawer(),
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: CustomAppbarTitle(
           subtitle: widget.subtitle,
@@ -55,8 +56,8 @@ class _HomePageState extends State<HomePage> {
           height: 10,
         ),
         itemBuilder: (BuildContext context, int index) {
-          final Game sendingGame = Game.fromJson(_gameList[index]);
-          return CustomListTile(listGame: sendingGame);
+          final Game backloggedGame = Game.fromJson(_gameList[index]);
+          return CustomListTile(listGame: backloggedGame);
         },
       ),
       floatingActionButton: FloatingActionButton(

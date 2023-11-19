@@ -22,6 +22,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       endDrawer: const CustomDrawer(),
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: CustomAppbarTitle(
           subtitle: widget.subtitle,
@@ -41,17 +42,18 @@ class _SearchPageState extends State<SearchPage> {
               return const CircularProgressIndicator();
             } else {
               return ListView.separated(
-                  padding: const EdgeInsets.only(
-                      top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
-                  separatorBuilder: (context, index) => const SizedBox(
-                        height: 10,
-                      ),
-                  itemCount: snapshot.data!.count,
-                  itemBuilder: (context, index) {
-                    final Game sendingGame =
-                        Game.fromJson(snapshot.data!.games![index]);
-                    return CustomListTile(listGame: sendingGame);
-                  });
+                padding: const EdgeInsets.only(
+                    top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 10,
+                ),
+                itemCount: snapshot.data!.count,
+                itemBuilder: (context, index) {
+                  final Game searchedGame =
+                      Game.fromJson(snapshot.data!.games![index]);
+                  return CustomListTile(listGame: searchedGame);
+                },
+              );
             }
           },
         ),
