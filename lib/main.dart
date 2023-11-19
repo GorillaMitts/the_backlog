@@ -1,5 +1,5 @@
-import 'package:the_backlog/pages/searchpage.dart';
 import 'package:flutter/material.dart';
+import 'pages/searchpage.dart';
 import 'pages/homepage.dart';
 
 void main() {

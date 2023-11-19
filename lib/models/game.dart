@@ -28,4 +28,16 @@ class Game {
       developers: json['developers'] as List?,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'game_title': gameTitle,
+      'release_date': releaseDate,
+      'platform': platform,
+      'region_id': regionId,
+      'country_id': countryId,
+      'developers': developers,
+    };
+  }
 }

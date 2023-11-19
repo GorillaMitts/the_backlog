@@ -1,8 +1,8 @@
-import 'package:the_backlog/components/custom_appBar_title.dart';
-import 'package:the_backlog/components/custom_list_tile.dart';
-import 'package:the_backlog/services/get_http.dart';
 import 'package:flutter/material.dart';
 
+import '../components/custom_appbar.dart';
+import '../components/custom_list_tile.dart';
+import '../services/fetch_games_list.dart';
 import '../models/game_list.dart';
 import '../models/game.dart';
 import '../components/custom_drawer.dart';
@@ -21,16 +21,10 @@ class _SearchPageState extends State<SearchPage> {
     final gameName = ModalRoute.of(context)!.settings.arguments.toString();
     return Scaffold(
       endDrawer: const CustomDrawer(),
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: CustomAppbarTitle(
-          subtitle: widget.subtitle,
-        ),
-      ),
+      appBar: CustomAppbar(subtitle: widget.subtitle),
       body: Center(
         child: FutureBuilder<GameList>(
-          future: fetchGame(gameName),
+          future: fetchGamesList(gameName),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
               return const Center(
@@ -43,7 +37,7 @@ class _SearchPageState extends State<SearchPage> {
             } else {
               return ListView.separated(
                 padding: const EdgeInsets.only(
-                    top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
+                    top: 10.0, bottom: 10.0, left: 5.0, right: 5.0),
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 10,
                 ),
@@ -51,7 +45,11 @@ class _SearchPageState extends State<SearchPage> {
                 itemBuilder: (context, index) {
                   final Game searchedGame =
                       Game.fromJson(snapshot.data!.games![index]);
-                  return CustomListTile(listGame: searchedGame);
+                  return CustomListTile(
+                    listGame: searchedGame,
+                    tapDisabled: false,
+                    dismissable: false,
+                  );
                 },
               );
             }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../services/database.dart';
 import '../models/game.dart';
 import '../components/custom_list_tile.dart';
-import '../components/custom_appbar_title.dart';
+import '../components/custom_appbar.dart';
 import '../components/custom_drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,56 +15,62 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List _gameList = [
-    {
-      'id': 2236,
-      'game_title': 'Super Mario Sunshine',
-      'release_date': '2002-08-25',
-      'platform': 2,
-      'region_id': 2,
-      'country_id': 0,
-      'developers': [6043],
-    },
-    {
-      'id': 73159,
-      'game_title': 'Super Mario 64 [Player\'s Choice]',
-      'release_date': '1996-09-29',
-      'platform': 3,
-      'region_id': 2,
-      'country_id': 0,
-      'developers': [6043],
-    },
-  ];
-
   TextEditingController titleFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: const CustomDrawer(),
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: CustomAppbarTitle(
-          subtitle: widget.subtitle,
-        ),
-      ),
-      body: ListView.separated(
-        itemCount: _gameList.length,
-        padding: const EdgeInsets.only(
-            top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
-        separatorBuilder: (context, index) => const SizedBox(
-          height: 10,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          final Game backloggedGame = Game.fromJson(_gameList[index]);
-          return CustomListTile(listGame: backloggedGame);
-        },
-      ),
+      appBar: CustomAppbar(subtitle: widget.subtitle),
+      body: FutureBuilder<List<Game>>(
+          future: DatabaseHelper.instance.getGames(),
+          builder: (BuildContext context, AsyncSnapshot<List<Game>> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return snapshot.data!.isEmpty
+                ? const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "No games in your backlog.",
+                          textAlign: TextAlign.center,
+                        ),
+                        Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text('Tap '),
+                            Icon(Icons.search),
+                            Text(' to add games.'),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                : ListView.separated(
+                    itemCount: snapshot.data!.length,
+                    padding: const EdgeInsets.only(
+                        top: 10.0, bottom: 10.0, left: 5.0, right: 5.0),
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 10,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      final Game backloggedGame = snapshot.data![index];
+                      return CustomListTile(
+                        listGame: backloggedGame,
+                        tapDisabled: true,
+                        dismissable: true,
+                      );
+                    },
+                  );
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _dialogBuilder(context),
         tooltip: 'Add Game',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.search),
       ),
     );
   }
@@ -92,7 +99,8 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.pushNamed(context, '/GameListViewer',
-                    arguments: titleFieldController.text);
+                        arguments: titleFieldController.text)
+                    .then((_) => setState(() {}));
                 titleFieldController.text = '';
               },
             ),

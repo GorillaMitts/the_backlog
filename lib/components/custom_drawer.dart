@@ -7,7 +7,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Padding(
-        padding: const EdgeInsets.only(top: 60.0, bottom: 30.0),
+        padding: const EdgeInsets.only(bottom: 30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -16,7 +16,7 @@ class CustomDrawer extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primaryContainer),
               child: const Padding(
-                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                padding: EdgeInsets.only(top: 60.0, bottom: 10.0),
                 child: Text(
                   'Welcome to \n The Backlog',
                   textAlign: TextAlign.center,

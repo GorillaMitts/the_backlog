@@ -2,14 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:the_backlog/env/env.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/game_list.dart';
 
-import 'package:http/http.dart' as http;
-
-Future<GameList> fetchGame(String name) async {
+Future<GameList> fetchGamesList(String name) async {
   String apiKey = Env.gamesDBapiKey;
-  // String apiKey = '';
   String gameName = name;
 
   String url =

@@ -1,16 +1,9 @@
-# the_backlog
+# The Backlog
 
-A new Flutter project.
+A mobile app built with Flutter to track video games that you would like to play or complete.
 
-## Getting Started
+\*\* Special Thanks to the good folks over at TheGamesDB
+[https://thegamesdb.net](https://thegamesdb.net)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="image/README/1700379275912.png" width="250">
+<img src="image/README/1700379203852.png" width="250">
